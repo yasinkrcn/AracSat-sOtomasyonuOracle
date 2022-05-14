@@ -13,6 +13,7 @@ namespace AracSatısOtomasyonuOracle
 {
     public partial class frmMusteriEkle : Form
     {
+        AracSatis arac_satis = new AracSatis();
         public frmMusteriEkle()
         {
             InitializeComponent();
@@ -20,33 +21,39 @@ namespace AracSatısOtomasyonuOracle
 
         private void btnEkle_Click(object sender, EventArgs e)
         {
-            String connectionString = "Data Source=(DESCRIPTION =" +
-        "(ADDRESS = (PROTOCOL = TCP)(HOST = DESKTOP-H3UF2DM)(PORT = 1521))" +
-        "(CONNECT_DATA =" +
-         "(SERVER = DEDICATED)" +
-         "(SERVICE_NAME = XEPDB1)" +
-           ")" +
-         ");User Id = YASIN;password=12345";
+        //    String connectionString = "Data Source=(DESCRIPTION =" +
+        //"(ADDRESS = (PROTOCOL = TCP)(HOST = DESKTOP-H3UF2DM)(PORT = 1521))" +
+        //"(CONNECT_DATA =" +
+        // "(SERVER = DEDICATED)" +
+        // "(SERVICE_NAME = XEPDB1)" +
+        //   ")" +
+        // ");User Id = YASIN;password=12345";
 
-            OracleConnection con = new OracleConnection();
-            con.ConnectionString = connectionString;
+        //    OracleConnection con = new OracleConnection();
+        //    con.ConnectionString = connectionString;
 
 
-            con.Open();
+        //    con.Open();
 
             
 
-            OracleCommand cmd = con.CreateCommand();
-            cmd.CommandText = "INSERT INTO MUSTERI (TC,ADSOYAD,TELEFON,ADRES,EMAIL) VALUES ('"+ txtTC + "','"+ txtAdSoyad + "','"+ txtTelNo + "','"+ txtAdres + "','"+ txtEmail + "')";
-            
+            //OracleCommand cmd = con.CreateCommand();
+            String commandText = "INSERT INTO MUSTERI (TC,ADSOYAD,TELEFON,ADRES,EMAIL) VALUES ('"+ txtTC + "','"+ txtAdSoyad + "','"+ txtTelNo + "','"+ txtAdres + "','"+ txtEmail + "')";
+            OracleCommand komut2 = new OracleCommand();
+
+            arac_satis.ekle_sil_guncelle(komut2, commandText);
+
+
+
            /* cmd.Parameters.Add("TC",txtTC);
             cmd.Parameters.Add("ADSOYAD", txtAdSoyad);
             cmd.Parameters.Add("TELEFON", txtTelNo);
             cmd.Parameters.Add("ADRES", txtAdres);
             cmd.Parameters.Add("EMAIL", txtEmail);
            */
-            cmd.Connection = con;
-            cmd.ExecuteNonQuery();
+            
+
+            foreach (Control item in Controls) if (item is TextBox) item.Text = "";
         }
 
         private void frmMusteriEkle_Load(object sender, EventArgs e)
